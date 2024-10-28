@@ -1,3 +1,10 @@
-import scapy
+from scapy.all import sniff, ICMP, IP
 
-# Implement your ICMP receiver here
+def runner(substrate):
+    if substrate.haslayer(ICMP):
+        if substrate[IP].ttl==1:
+            substrate.show()
+            exit(0)
+
+#waiting for incoming ICMP packets
+sniff(prn=runner)
